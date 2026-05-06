@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BSM Advisory & Consulting — Jean-Baptiste Barthe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #F7F4EE;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1.5px solid #C9A84C;
+    border-radius: 20px;
+    padding: 2.2rem 1.8rem 1.8rem;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+  }
+
+  .top-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1.4rem;
+  }
+
+  .top-ornament .line { height: 1px; width: 40px; background: #C9A84C; }
+  .top-ornament .diamond { width: 6px; height: 6px; background: #C9A84C; transform: rotate(45deg); }
+
+  .logo-block { text-align: center; margin-bottom: 0.4rem; }
+
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #0A1628;
+    letter-spacing: 0.16em;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: #C9A84C;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #C9A84C 30%, #C9A84C 70%, transparent);
+    margin: 1.4rem 0;
+  }
+
+  .identity { text-align: center; margin-bottom: 0.3rem; }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0A1628;
+    letter-spacing: 0.06em;
+  }
+
+  .title {
+    font-size: 9px;
+    font-weight: 400;
+    color: #C9A84C;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  .tagline {
+    font-size: 10px;
+    font-weight: 300;
+    color: #999;
+    font-style: italic;
+    margin-top: 7px;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  .divider-light {
+    width: 100%;
+    height: 1px;
+    background: #EDE5CC;
+    margin: 1.3rem 0;
+  }
+
+  .contacts { display: flex; flex-direction: column; gap: 10px; }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .icon-circle {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #C9A84C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-circle svg { width: 13px; height: 13px; fill: #C9A84C; }
+
+  .contact-text {
+    font-size: 11.5px;
+    color: #0A1628;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .linkedin-section { display: flex; flex-direction: column; gap: 9px; }
+
+  .li-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border: 1px solid #C9A84C;
+    border-radius: 10px;
+    text-decoration: none;
+    background: #fff;
+    transition: background 0.18s;
+    cursor: pointer;
+  }
+
+  .li-btn:hover { background: #fdf8ee; }
+  .li-btn svg { width: 20px; height: 20px; fill: #C9A84C; flex-shrink: 0; }
+
+  .li-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #C9A84C;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .li-sub { font-size: 9px; color: #aaa; font-weight: 300; margin-top: 2px; }
+
+  .qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-label {
+    font-size: 8px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    font-weight: 400;
+  }
+
+  .qr-frame {
+    border: 1.5px solid #C9A84C;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+  }
+
+  #qr-container canvas,
+  #qr-container img { display: block; border-radius: 4px; }
+
+  .bottom-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.3rem;
+  }
+
+  .bottom-ornament .line { height: 1px; width: 40px; background: #C9A84C; }
+  .bottom-ornament .diamond { width: 5px; height: 5px; background: #C9A84C; transform: rotate(45deg); }
+
+  .footer-text {
+    font-size: 7.5px;
+    color: #ccc;
+    text-align: center;
+    margin-top: 7px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="top-ornament">
+    <div class="line"></div>
+    <div class="diamond"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="logo-block">
+    <div class="logo-main">BSM</div>
+    <div class="logo-sub">Advisory &amp; Consulting</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="identity">
+    <div class="name">Jean-Baptiste Barthe</div>
+    <div class="title">Directeur &amp; Fondateur</div>
+    <div class="tagline">Risk Governance · Résilience Opérationnelle · Gestion de Crise</div>
+  </div>
+
+  <div class="divider-light"></div>
+
+  <div class="contacts">
+    <a href="mailto:jeanbaptiste.barthe@bsmconseils.com" class="contact-row">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <span class="contact-text">jeanbaptiste.barthe@bsmconseils.com</span>
+    </a>
+    <a href="tel:+261323527563" class="contact-row">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.44 21 3 13.56 3 4.5a1 1 0 011-1H7.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+      </div>
+      <span class="contact-text">+261 32 35 275 63</span>
+    </a>
+  </div>
+
+  <div class="divider-light"></div>
+
+  <div class="linkedin-section">
+    <a href="https://www.linkedin.com/in/jean-baptiste-barthe-59b286208" class="li-btn" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <div>
+        <div class="li-label">Profil personnel</div>
+        <div class="li-sub">Jean-Baptiste Barthe</div>
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/company/bsm-s%C3%A9curit%C3%A9/" class="li-btn" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <div>
+        <div class="li-label">Page entreprise</div>
+        <div class="li-sub">BSM Advisory &amp; Consulting</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="divider-light"></div>
+
+  <div class="qr-section">
+    <div class="qr-label">Scanner pour accéder à cette page</div>
+    <div class="qr-frame">
+      <div id="qr-container"></div>
+    </div>
+  </div>
+
+  <div class="bottom-ornament">
+    <div class="line"></div>
+    <div class="diamond"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="footer-text">BSM Advisory &amp; Consulting · Antananarivo, Madagascar</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qr-container"), {
+    text: "https://jeanbaptistebarthe.github.io/bsm-card/",
+    width: 150,
+    height: 150,
+    colorDark: "#0A1628",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>
