@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Jean-Baptiste Barthe — BSM Advisory & Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1F45;
+    --navy-mid: #122554;
+    --navy-light: #1a2f66;
+    --gold: #B5923A;
+    --gold-light: #d4af6a;
+    --gold-pale: #e8d5a3;
+    --cream: #faf8f4;
+    --white: #ffffff;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--navy);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(181,146,58,.18) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(181,146,58,.10) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 0% 80%, rgba(13,31,69,.9) 0%, transparent 60%),
+      linear-gradient(165deg, #0a1836 0%, #0D1F45 45%, #0e2050 100%);
+  }
+
+  /* Subtle grain */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: .4;
+    pointer-events: none;
+  }
+
+  /* ── PARTICLES ── */
+  #particles {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+    5%   { opacity: .6; }
+    95%  { opacity: .3; }
+    100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* ── WRAPPER ── */
+  .page {
+    position: relative; z-index: 2;
+    min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 20px 60px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    width: 100%; max-width: 420px;
+    background: linear-gradient(145deg,
+      rgba(255,255,255,.07) 0%,
+      rgba(255,255,255,.03) 50%,
+      rgba(181,146,58,.06) 100%);
+    border: 1px solid rgba(181,146,58,.25);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(181,146,58,.08),
+      0 40px 80px rgba(0,0,0,.5),
+      0 0 60px rgba(181,146,58,.08),
+      inset 0 1px 0 rgba(255,255,255,.12);
+    padding: 44px 36px 40px;
+    transform-style: preserve-3d;
+    transition: transform .1s ease, box-shadow .1s ease;
+    opacity: 0;
+    animation: cardReveal .9s cubic-bezier(.22,1,.36,1) .2s forwards;
+  }
+
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(28px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── HEADER ORNAMENT ── */
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-bottom: 28px;
+    opacity: 0; animation: fadeUp .6s ease .6s forwards;
+  }
+  .ornament-line {
+    height: 1px; width: 48px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .ornament-line.r { background: linear-gradient(270deg, transparent, var(--gold)); }
+  .ornament-diamond {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(181,146,58,.6);
+  }
+
+  /* ── LOGO ── */
+  .logo-block {
+    text-align: center; margin-bottom: 8px;
+    opacity: 0; animation: fadeUp .7s ease .75s forwards;
+  }
+  .logo-bsm {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 300;
+    letter-spacing: .35em;
+    background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold) 40%, var(--gold-light) 60%, var(--gold-pale) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s ease-in-out infinite 1.5s;
+    position: relative; display: inline-block;
+  }
+  @keyframes shimmer {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  .logo-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: rgba(181,146,58,.7);
+    margin-top: 2px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px; margin: 24px 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(181,146,58,.35) 30%, rgba(181,146,58,.35) 70%, transparent 100%);
+    opacity: 0; animation: fadeIn .6s ease 1s forwards;
+  }
+
+  /* ── NAME BLOCK ── */
+  .name-block {
+    text-align: center; margin-bottom: 24px;
+    opacity: 0; animation: fadeUp .7s ease 1.1s forwards;
+  }
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 400; font-style: italic;
+    color: var(--white);
+    letter-spacing: .02em;
+    line-height: 1.2;
+  }
+  .title-label {
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold);
+    margin: 8px 0 10px;
+  }
+  .expertise {
+    font-size: 12.5px; font-weight: 300;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .04em;
+    line-height: 1.7;
+  }
+  .expertise span { color: rgba(255,255,255,.3); margin: 0 6px; }
+
+  /* ── CONTACT ITEMS ── */
+  .contacts {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp .7s ease 1.3s forwards;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(181,146,58,.15);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, transform .15s;
+    cursor: pointer;
+  }
+  .contact-item:active {
+    background: rgba(181,146,58,.1);
+    border-color: rgba(181,146,58,.4);
+    transform: scale(.98);
+  }
+  .contact-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(181,146,58,.3);
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(181,146,58,.08);
+  }
+  .contact-icon svg { width: 15px; height: 15px; fill: var(--gold); }
+  .contact-text { flex: 1; min-width: 0; }
+  .contact-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .contact-value {
+    font-size: 13.5px; font-weight: 400;
+    color: rgba(255,255,255,.75);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── SOCIAL BUTTONS ── */
+  .socials {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 32px;
+    opacity: 0; animation: fadeUp .7s ease 1.5s forwards;
+  }
+  .social-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(181,146,58,.18);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, transform .15s;
+    cursor: pointer;
+  }
+  .social-btn:active {
+    background: rgba(181,146,58,.1);
+    border-color: rgba(181,146,58,.45);
+    transform: scale(.98);
+  }
+  .social-icon {
+    width: 32px; height: 32px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .social-icon svg { width: 22px; height: 22px; fill: var(--gold); }
+  .social-text { flex: 1; }
+  .social-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2px;
+  }
+  .social-value {
+    font-size: 13px; color: rgba(255,255,255,.6);
+  }
+  .social-arrow {
+    font-size: 18px; color: rgba(181,146,58,.4);
+    margin-left: auto;
+  }
+
+  /* ── CTA SAVE ── */
+  .cta-save {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 17px;
+    background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 50%, var(--gold) 100%);
+    background-size: 200% 200%;
+    border: none; border-radius: 14px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--navy);
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(181,146,58,.35), 0 1px 0 rgba(255,255,255,.2) inset;
+    transition: transform .15s, box-shadow .15s;
+    animation: ctaShimmer 3s ease-in-out infinite 2.5s, fadeUp .7s ease 1.7s both;
+    opacity: 0;
+  }
+  @keyframes ctaShimmer {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  .cta-save:active {
+    transform: scale(.97);
+    box-shadow: 0 2px 12px rgba(181,146,58,.3);
+  }
+  .cta-save svg { width: 16px; height: 16px; fill: var(--navy); flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  .card-footer {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-top: 32px;
+    opacity: 0; animation: fadeIn .6s ease 2s forwards;
+  }
+  .footer-line { height: 1px; width: 36px; background: rgba(181,146,58,.25); }
+  .footer-diamond { width: 5px; height: 5px; background: var(--gold-light); transform: rotate(45deg); opacity: .5; }
+  .footer-text {
+    font-size: 9.5px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(181,146,58,.4);
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: rgba(13,31,69,.95);
+    border: 1px solid rgba(181,146,58,.4);
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-size: 13px; font-weight: 500;
+    color: var(--gold-pale);
+    letter-spacing: .05em;
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    opacity: 0; z-index: 100;
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── UTILITIES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Tilt glow layer */
+  .card-glow {
+    position: absolute; inset: -1px; border-radius: 24px; pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%),
+      rgba(181,146,58,.12) 0%, transparent 60%);
+    transition: background .05s;
+    z-index: -1;
+  }
+
+  .card { position: relative; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .ornament, .logo-block, .divider, .name-block,
+    .contacts, .socials, .cta-save, .card-footer, .particle {
+      animation: none !important; opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="page">
+  <div class="card" id="card">
+    <div class="card-glow" id="cardGlow"></div>
+
+    <!-- Header ornament -->
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line r"></div>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo-block">
+      <div class="logo-bsm">B S M</div>
+      <div class="logo-sub">Advisory &amp; Consulting</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Name & title -->
+    <div class="name-block">
+      <div class="name">Jean-Baptiste Barthe</div>
+      <div class="title-label">Directeur &amp; Fondateur</div>
+      <div class="expertise">
+        Risk Governance <span>·</span> Résilience Opérationnelle <span>·</span> Gestion de Crise
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Contact items -->
+    <div class="contacts">
+      <a class="contact-item" href="mailto:jeanbaptiste.barthe@bsmconseils.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">jeanbaptiste.barthe@bsmconseils.com</div>
+        </div>
+      </a>
+      <a class="contact-item" href="tel:+261323527563">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Téléphone</div>
+          <div class="contact-value">+261 32 35 275 63</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Social -->
+    <div class="socials">
+      <a class="social-btn" href="https://www.linkedin.com/in/jean-baptiste-barthe" target="_blank" rel="noopener">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM3.56 20.45h3.56V9H3.56v11.45z"/></svg>
+        </div>
+        <div class="social-text">
+          <div class="social-label">Profil Personnel</div>
+          <div class="social-value">Jean-Baptiste Barthe</div>
+        </div>
+        <div class="social-arrow">›</div>
+      </a>
+      <a class="social-btn" href="https://www.linkedin.com/company/bsm-advisory-consulting" target="_blank" rel="noopener">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM3.56 20.45h3.56V9H3.56v11.45z"/></svg>
+        </div>
+        <div class="social-text">
+          <div class="social-label">Page Entreprise</div>
+          <div class="social-value">BSM Advisory &amp; Consulting</div>
+        </div>
+        <div class="social-arrow">›</div>
+      </a>
+    </div>
+
+    <!-- CTA -->
+    <button class="cta-save" id="ctaSave" onclick="saveContact()">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      Enregistrer le Contact
+    </button>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="footer-line"></div>
+      <div class="footer-diamond"></div>
+      <div class="footer-text">BSM Advisory &amp; Consulting · Antananarivo, Madagascar</div>
+      <div class="footer-diamond"></div>
+      <div class="footer-line"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Contact enregistré dans vos favoris</div>
+
+<script>
+// ── PARTICLES ──
+(function(){
+  const c = document.getElementById('particles');
+  for(let i=0; i<28; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const x = Math.random()*100;
+    const drift = (Math.random()-0.5)*120;
+    const dur = 8 + Math.random()*14;
+    const delay = Math.random()*20;
+    const size = Math.random() < .3 ? 3 : 2;
+    p.style.cssText = `left:${x}%;width:${size}px;height:${size}px;--drift:${drift}px;animation-duration:${dur}s;animation-delay:-${delay}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// ── 3D TILT (mouse / touch) ──
+const card = document.getElementById('card');
+const glow = document.getElementById('cardGlow');
+let raf;
+
+function applyTilt(rx, ry, mx, my) {
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.012)`;
+    card.style.boxShadow = `0 0 0 1px rgba(181,146,58,.08), 0 50px 100px rgba(0,0,0,.6), 0 0 80px rgba(181,146,58,.14), inset 0 1px 0 rgba(255,255,255,.15)`;
+    glow.style.background = `radial-gradient(circle at ${mx}% ${my}%, rgba(181,146,58,.18) 0%, transparent 65%)`;
+  });
+}
+
+function resetTilt() {
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+    glow.style.background = '';
+  });
+}
+
+card.addEventListener('mousemove', e => {
+  const r = card.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width;
+  const y = (e.clientY - r.top)  / r.height;
+  applyTilt((y-.5)*-10, (x-.5)*12, x*100, y*100);
+});
+card.addEventListener('mouseleave', resetTilt);
+
+// Touch gyro tilt
+let gyroSupported = false;
+if(window.DeviceOrientationEvent) {
+  const req = DeviceOrientationEvent.requestPermission;
+  if(typeof req === 'function') {
+    document.addEventListener('click', () => {
+      req().then(s => { if(s==='granted') gyroSupported = true; }, ()=>{});
+    }, {once:true});
+  } else { gyroSupported = true; }
+  window.addEventListener('deviceorientation', e => {
+    if(!gyroSupported) return;
+    const ry = Math.max(-10, Math.min(10, (e.gamma||0) * .35));
+    const rx = Math.max(-8,  Math.min(8,  (e.beta  ? (e.beta-90)*.25 : 0)));
+    applyTilt(rx, ry, 50+(ry/10*50), 50+(rx/8*50));
+  });
+}
+
+// ── SAVE CONTACT vCard ──
+function saveContact() {
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Jean-Baptiste Barthe
+N:Barthe;Jean-Baptiste;;;
+ORG:BSM Advisory & Consulting
+TITLE:Directeur & Fondateur
+EMAIL;TYPE=WORK:jeanbaptiste.barthe@bsmconseils.com
+TEL;TYPE=CELL:+261323527563
+URL:https://jbbarthe.github.io
+ADR;TYPE=WORK:;;Ivato;Antananarivo;;Madagascar
+END:VCARD`;
+  const blob = new Blob([vcard], {type:'text/vcard'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'Jean-Baptiste_Barthe_BSM.vcf';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Contact enregistré ✓');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
